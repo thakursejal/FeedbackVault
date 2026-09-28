@@ -6,7 +6,9 @@ from hindsight_client import Hindsight
 
 load_dotenv()
 
-API_KEY = os.getenv("HINDSIGHT_API_KEY")
+import streamlit as st
+
+API_KEY = st.secrets["HINDSIGHT_API_KEY"]
 BANK_ID = "feedbackvault"
 
 client = Hindsight(
