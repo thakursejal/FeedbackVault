@@ -13,6 +13,11 @@ st.subheader("Organizational Feedback Memory Agent")
 st.caption(
     "Learn from past decisions. Remember outcomes. Make better-informed product decisions."
 )
+st.info(
+    "🧠 Hindsight Memory Loop: "
+    "Feedback → Recall past experience → Recommend action → "
+    "Record decision & outcome → Learn for future feedback"
+)
 st.write(
     "Submit new customer feedback and let the agent recall "
     "relevant organizational experience before recommending a product action."
