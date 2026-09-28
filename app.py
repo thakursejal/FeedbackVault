@@ -1,5 +1,6 @@
 import streamlit as st
 from agent import analyze_feedback
+from memory import retain_memory
 
 st.set_page_config(
     page_title="FeedbackVault AI",
@@ -43,3 +44,32 @@ if st.button("🔍 Analyze Feedback", type="primary"):
 
         st.markdown("### 💡 Agent Recommendation")
         st.write(result["recommendation"])
+        st.markdown("### 📌 Record Product Decision")
+
+decision = st.text_area(
+    "What decision did the product team make?",
+    placeholder="Example: Reconsidered WhatsApp notifications because customer demand increased."
+)
+
+if st.button("💾 Save Decision to Hindsight"):
+
+    if not decision.strip():
+        st.warning("Please enter the product decision.")
+    else:
+    memory_text = f"""
+Customer feedback:
+{result["feedback"]}
+
+Product team decision:
+{decision}
+
+This decision was recorded as organizational experience
+for future product feedback analysis.
+"""
+
+    with st.spinner("Saving decision to Hindsight..."):
+        retain_memory(memory_text)
+
+    st.success("✅ Decision saved to Hindsight!")
+    else:
+        st.success("Decision recorded for organizational learning.")
