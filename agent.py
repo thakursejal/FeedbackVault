@@ -6,11 +6,17 @@ def analyze_feedback(feedback):
 
     memories = recall_memory(feedback)
 
-    past_experience = []
+   past_experience = []
+seen = set()
 
-    for memory in memories:
+for memory in memories:
+    text = memory.get("text", "").strip()
+
+    if text and text not in seen:
+        seen.add(text)
+
         past_experience.append({
-            "text": memory.get("text", ""),
+            "text": text,
             "score": memory.get("scores", {}).get("final", 0)
         })
 
