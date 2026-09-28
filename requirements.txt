@@ -1,0 +1,4 @@
+hindsight-client
+requests
+streamlit
+python-dotenv
