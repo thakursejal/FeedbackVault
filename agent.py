@@ -32,7 +32,14 @@ def analyze_feedback(feedback):
             for memory in past_experience
         )
 
-        if "rejected" in combined_memory and "low customer demand" in combined_memory:
+        if "product review" in combined_memory:
+            recommendation = (
+                "📌 A previous decision moved this feature to product review "
+                "after increased customer demand. Use that outcome as the latest "
+                "organizational context when evaluating this request."
+            )
+
+        elif "rejected" in combined_memory and "low customer demand" in combined_memory:
             recommendation = (
                 "🔄 Reconsider the previous decision. "
                 "This request was previously rejected because customer demand was low, "
