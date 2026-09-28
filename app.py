@@ -21,6 +21,7 @@ feedback = st.text_area(
     placeholder="Example: Customers are requesting WhatsApp notifications again..."
 )
 
+# Analyze feedback
 if st.button("🔍 Analyze Feedback", type="primary"):
 
     if not feedback.strip():
@@ -30,43 +31,52 @@ if st.button("🔍 Analyze Feedback", type="primary"):
         with st.spinner("Searching organizational memory..."):
             result = analyze_feedback(feedback)
 
-        st.success("Analysis complete!")
+        st.session_state["feedback_result"] = result
 
-        st.markdown("### 📝 New Feedback")
-        st.write(result["feedback"])
+# Get stored analysis result
+result = st.session_state.get("feedback_result")
 
-        st.markdown("### 🧠 Hindsight Memory")
+# Display analysis
+if result:
 
-        if result["past_experience"]:
-            for memory in result["past_experience"]:
-                st.info(memory["text"])
-        else:
-            st.info("No relevant past experience found.")
+    st.success("Analysis complete!")
 
-        st.markdown("### 💡 Agent Recommendation")
-        st.write(result["recommendation"])
+    st.markdown("### 📝 New Feedback")
+    st.write(result["feedback"])
 
-        st.markdown("### 📌 Record Product Decision")
+    st.markdown("### 🧠 Hindsight Memory")
 
-        decision = st.text_area(
-            "What decision did the product team make?",
-            placeholder="Example: Reconsidered WhatsApp notifications because customer demand increased."
-        )
-        outcome = st.text_area(
-    "What was the outcome?",
-    placeholder="Example: Customer demand increased and the feature moved to product review."
-)
-
-if st.button("💾 Save Decision to Hindsight"):
-
-    if not decision.strip():
-        st.warning("Please enter the product decision.")
-
-    elif not outcome.strip():
-        st.warning("Please enter the outcome.")
-
+    if result["past_experience"]:
+        for memory in result["past_experience"]:
+            st.info(memory["text"])
     else:
-        memory_text = f"""
+        st.info("No relevant past experience found.")
+
+    st.markdown("### 💡 Agent Recommendation")
+    st.write(result["recommendation"])
+
+    st.markdown("### 📌 Record Product Decision")
+
+    decision = st.text_area(
+        "What decision did the product team make?",
+        placeholder="Example: Reconsidered WhatsApp notifications because customer demand increased."
+    )
+
+    outcome = st.text_area(
+        "What was the outcome?",
+        placeholder="Example: Customer demand increased and the feature moved to product review."
+    )
+
+    if st.button("💾 Save Decision to Hindsight"):
+
+        if not decision.strip():
+            st.warning("Please enter the product decision.")
+
+        elif not outcome.strip():
+            st.warning("Please enter the outcome.")
+
+        else:
+            memory_text = f"""
 Customer feedback:
 {result["feedback"]}
 
@@ -80,7 +90,7 @@ This decision and outcome were recorded as organizational experience
 for future product feedback analysis.
 """
 
-        with st.spinner("Saving decision to Hindsight..."):
-            retain_memory(memory_text)
+            with st.spinner("Saving decision to Hindsight..."):
+                retain_memory(memory_text)
 
-        st.success("✅ Decision and outcome saved to Hindsight!")
+            st.success("✅ Decision and outcome saved to Hindsight!")
