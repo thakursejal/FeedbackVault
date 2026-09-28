@@ -9,8 +9,10 @@ st.set_page_config(
 )
 
 st.title("🧠 FeedbackVault AI")
-st.subheader("AI Product Feedback Agent with Hindsight Memory")
-
+st.subheader("Organizational Feedback Memory Agent")
+st.caption(
+    "Learn from past decisions. Remember outcomes. Make better-informed product decisions."
+)
 st.write(
     "Submit new customer feedback and let the agent recall "
     "relevant organizational experience before recommending a product action."
