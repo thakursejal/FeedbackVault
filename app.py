@@ -57,13 +57,16 @@ if st.button("🔍 Analyze Feedback", type="primary"):
     placeholder="Example: Customer demand increased and the feature moved to product review."
 )
 
-        if st.button("💾 Save Decision to Hindsight"):
+if st.button("💾 Save Decision to Hindsight"):
 
-            if not decision.strip():
-                st.warning("Please enter the product decision.")
+    if not decision.strip():
+        st.warning("Please enter the product decision.")
 
-            else:
-               memory_text = f"""
+    elif not outcome.strip():
+        st.warning("Please enter the outcome.")
+
+    else:
+        memory_text = f"""
 Customer feedback:
 {result["feedback"]}
 
@@ -76,7 +79,8 @@ Outcome:
 This decision and outcome were recorded as organizational experience
 for future product feedback analysis.
 """
-                with st.spinner("Saving decision to Hindsight..."):
-                    retain_memory(memory_text)
 
-                st.success("✅ Decision saved to Hindsight!")
+        with st.spinner("Saving decision to Hindsight..."):
+            retain_memory(memory_text)
+
+        st.success("✅ Decision and outcome saved to Hindsight!")
