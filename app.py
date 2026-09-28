@@ -52,6 +52,10 @@ if st.button("🔍 Analyze Feedback", type="primary"):
             "What decision did the product team make?",
             placeholder="Example: Reconsidered WhatsApp notifications because customer demand increased."
         )
+        outcome = st.text_area(
+    "What was the outcome?",
+    placeholder="Example: Customer demand increased and the feature moved to product review."
+)
 
         if st.button("💾 Save Decision to Hindsight"):
 
@@ -59,17 +63,19 @@ if st.button("🔍 Analyze Feedback", type="primary"):
                 st.warning("Please enter the product decision.")
 
             else:
-                memory_text = f"""
+               memory_text = f"""
 Customer feedback:
 {result["feedback"]}
 
 Product team decision:
 {decision}
 
-This decision was recorded as organizational experience
+Outcome:
+{outcome}
+
+This decision and outcome were recorded as organizational experience
 for future product feedback analysis.
 """
-
                 with st.spinner("Saving decision to Hindsight..."):
                     retain_memory(memory_text)
 
